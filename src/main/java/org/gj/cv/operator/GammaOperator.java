@@ -6,6 +6,7 @@ import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_imgcodecs;
 import org.bytedeco.javacpp.annotation.Namespace;
+import org.springframework.stereotype.Component;
 import org.bytedeco.javacpp.opencv_highgui;
 import org.bytedeco.javacpp.opencv_highgui.CvTrackbarCallback;
 
@@ -16,8 +17,15 @@ import org.bytedeco.javacpp.opencv_highgui.CvTrackbarCallback;
  * @author gaojun
  *
  */
-public class GammaOperator {
-	public void gammaCorrection(Mat dst, double gamma) {
+@Component("gamma")
+public class GammaOperator extends Operator{
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return "gamma";
+	}
+	public Mat gammaCorrection(Mat dst, double gamma) {
 		Mat img_gamma_corrected = new Mat(dst.rows(), dst.cols() * 2, dst.type());
 		Mat lookUpTable = new Mat(1, 256, opencv_core.CV_8U);
 		BytePointer p = lookUpTable.ptr();
@@ -33,11 +41,12 @@ public class GammaOperator {
 		// ![changing-contrast-brightness-gamma-correction]
 		opencv_core.hconcat(dst, res, img_gamma_corrected);
 		opencv_highgui.imshow("gamma", img_gamma_corrected);
+		return img_gamma_corrected;
 		// opencv_imgcodecs.imwrite("C:\\workplace\\im\\kk\\img_gamma_corrected.jpg",
 		// img_gamma_corrected);
 	}
-
-	public void handle(Mat dst) {
+	@Override
+	public Mat handle(Mat dst) {
 		opencv_highgui.namedWindow("gamma");
 		IntPointer gamma_cor = new IntPointer();//无用参数
 		opencv_highgui.cvCreateTrackbar("gamma", "gamma", gamma_cor, 200, new CvTrackbarCallback() {
@@ -46,7 +55,6 @@ public class GammaOperator {
 				System.out.println(pos);
 			}
 		});
-		gammaCorrection(dst, 0);
-		opencv_highgui.waitKey(0);
+		return gammaCorrection(dst, 50/ 100.0);
 	}
 }
