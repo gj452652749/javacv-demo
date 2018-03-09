@@ -2,17 +2,17 @@ package org.gj.demo.vo;
 
 public class OperatorRequest {
 	String name;
-	String savePath;
+	String dstUrl;
 	
 	public OperatorRequest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
-	public OperatorRequest(String name, String savePath) {
+	public OperatorRequest(String name, String dstUrl) {
 		super();
 		this.name = name;
-		this.savePath = savePath;
+		this.dstUrl = dstUrl;
 	}
 
 	public String getName() {
@@ -21,11 +21,11 @@ public class OperatorRequest {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getSavePath() {
-		return savePath;
+	public String getDstUrl() {
+		return dstUrl;
 	}
-	public void setSavePath(String savePath) {
-		this.savePath = savePath;
+	public void setSavePath(String dstUrl) {
+		this.dstUrl = dstUrl;
 	}
 
 }

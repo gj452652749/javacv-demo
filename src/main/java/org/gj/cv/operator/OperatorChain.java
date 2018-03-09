@@ -49,7 +49,7 @@ public class OperatorChain {
 			
 		}
 		Mat rep=new Mat();
-		opencv_core.hconcat(dst, res, rep);
+		opencv_core.hconcat( res,dst, rep);
 		return rep;
 	}
 

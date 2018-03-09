@@ -5,7 +5,6 @@ import static org.bytedeco.javacpp.opencv_imgproc.blur;
 
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.Size;
-import org.bytedeco.javacpp.opencv_imgcodecs;
 import org.bytedeco.javacpp.opencv_imgproc;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +35,6 @@ public class CannyOperator extends Operator{
 		blur(src_gray, detected_edges, new Size(3, 3));
 		Canny(detected_edges, detected_edges, lowThreshold, lowThreshold*ratio,kernel_size,false);
 		res.copyTo(dst, detected_edges);
-		opencv_imgcodecs.imwrite("C:\\workplace\\im\\kk\\a.jpg", dst);
 		return dst;
 	}
 
