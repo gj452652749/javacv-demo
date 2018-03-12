@@ -2,6 +2,7 @@ package org.gj.demo.web;
 
 import java.util.List;
 
+import org.gj.context.AppContext;
 import org.gj.demo.dao.DemoDao;
 import org.gj.demo.vo.OperatorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 	@Autowired
 	DemoDao demoDao;
+	@Autowired
+	AppContext appContext;
 	@RequestMapping("/start")
 	@ResponseBody
 	public String start() {
@@ -41,12 +44,13 @@ public class DemoController {
 		//demoDao.getOperatorChain().set(index, activedOperator);
 		return "{\"code\":0}";
 	}
-	@RequestMapping(value ="/updateoperatorchain", method = RequestMethod.POST)
+	@RequestMapping(value ="/updateoperatorchain/{version}", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateOperatorChain(@RequestBody List<OperatorRequest> operatorReqs) {
+	public String updateOperatorChain(@PathVariable(value = "version") int version,@RequestBody List<OperatorRequest> operatorReqs) {
 		//demoService.start();
-		System.out.println(operatorReqs.size()+
+		System.out.println("version:"+version+" "+operatorReqs.size()+
 				operatorReqs.get(operatorReqs.size()-1).toString());
+		appContext.getVersion().set(version);
 		demoDao.doOperator(operatorReqs);
 		return "{\"code\":0}";
 	}

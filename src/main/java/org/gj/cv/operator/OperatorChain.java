@@ -21,6 +21,7 @@ public class OperatorChain {
 	}
 
 	public void setOperators(List<OperatorRequest> operatorReqs) {
+		pos=0;
 		this.operatorReqs = operatorReqs;
 	}
 
@@ -44,9 +45,7 @@ public class OperatorChain {
 		Mat dst=res.clone();
 		if(pos<=(operatorReqs.size()-1)) {
 			Operator op=operatorFactory.getBean(operatorReqs.get(pos).getName(),Operator.class);
-			pos++;
-			return op.doOperator(dst,this);
-			
+			return op.doOperator(dst,operatorReqs.get(pos++).getBarPos(),this);
 		}
 		Mat rep=new Mat();
 		opencv_core.hconcat( res,dst, rep);

@@ -10,7 +10,7 @@ public class GammaOperatorTest {
 	@Test
 	public void gamma() {
 		Mat matL = imread("C:\\Users\\gaojun\\Pictures\\Camera Roll\\a.jpg");
-		gammaOperator.handle(matL);
+		gammaOperator.handle(matL,50);
 	}
 
 }

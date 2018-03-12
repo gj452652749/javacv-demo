@@ -26,7 +26,7 @@ public class GammaOperator extends Operator{
 		return "gamma";
 	}
 	public Mat gammaCorrection(Mat dst, double gamma) {
-		Mat img_gamma_corrected = new Mat(dst.rows(), dst.cols() * 2, dst.type());
+		//Mat img_gamma_corrected = new Mat(dst.rows(), dst.cols() * 2, dst.type());
 		Mat lookUpTable = new Mat(1, 256, opencv_core.CV_8U);
 		BytePointer p = lookUpTable.ptr();
 		for (int i = 0; i < 256; ++i) {
@@ -39,22 +39,13 @@ public class GammaOperator extends Operator{
 		// 遍历dst获得像素，从lookUpTable中获得对应的像素值，赋值给res
 		opencv_core.LUT(dst, lookUpTable, res);
 		// ![changing-contrast-brightness-gamma-correction]
-		opencv_core.hconcat(dst, res, img_gamma_corrected);
-		opencv_highgui.imshow("gamma", img_gamma_corrected);
-		return img_gamma_corrected;
+		//opencv_core.hconcat(dst, res, img_gamma_corrected);
+		return res;
 		// opencv_imgcodecs.imwrite("C:\\workplace\\im\\kk\\img_gamma_corrected.jpg",
 		// img_gamma_corrected);
 	}
 	@Override
-	public Mat handle(Mat dst) {
-		opencv_highgui.namedWindow("gamma");
-		IntPointer gamma_cor = new IntPointer();//无用参数
-		opencv_highgui.cvCreateTrackbar("gamma", "gamma", gamma_cor, 200, new CvTrackbarCallback() {
-			public void call(int pos) {
-				gammaCorrection(dst, pos / 100.0);
-				System.out.println(pos);
-			}
-		});
-		return gammaCorrection(dst, 50/ 100.0);
+	public Mat handle(Mat dst,int barPos) {
+		return gammaCorrection(dst, barPos/ 100.0);
 	}
 }

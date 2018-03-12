@@ -10,7 +10,7 @@ public class CannyOperatorTest {
 	@Test
 	public void canny() {
 		 Mat matL = imread("C:\\Users\\gaojun\\Pictures\\Camera Roll\\a.jpg");
-		 operator.handle(matL);
+		 operator.handle(matL,50);
 	}
 
 }

@@ -17,8 +17,8 @@ public class DemoDaoTest {
 	@Test
 	public void doOperator() {
 		List<OperatorRequest> operatorReqs=new ArrayList<OperatorRequest>();
-		operatorReqs.add(new OperatorRequest("gamma","1", 0));
-		operatorReqs.add(new OperatorRequest("canny","1", 0));
+		operatorReqs.add(new OperatorRequest("gamma","1", 50));
+		operatorReqs.add(new OperatorRequest("canny","1", 50));
 		demoDao.doOperator(operatorReqs);
 	}
 
