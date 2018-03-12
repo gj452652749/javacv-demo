@@ -13,8 +13,13 @@ import org.springframework.stereotype.Component;
 public class DemoDao {
 	@Autowired
 	OperatorChain operatorChain;
+	
+	public OperatorChain getOperatorChain() {
+		return operatorChain;
+	}
+
 	public void doOperator(List<OperatorRequest> operatorReqs) {
-		Mat res = imread("C:\\Users\\gaojun\\Pictures\\Camera Roll\\a.jpg");
+		Mat res = imread("C:\\workplace\\img\\0.jpg");
 		operatorChain.setOperators(operatorReqs);
 		operatorChain.doOperator(res);
 	}

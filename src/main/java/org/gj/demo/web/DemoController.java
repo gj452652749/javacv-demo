@@ -1,40 +1,60 @@
 package org.gj.demo.web;
 
-import org.gj.demo.service.DemoService;
+import java.util.List;
+
+import org.gj.demo.dao.DemoDao;
+import org.gj.demo.vo.OperatorRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/demo")
-@CrossOrigin
+@CrossOrigin(origins = "*", maxAge = 3600) 
 public class DemoController {
 	@Autowired
-	DemoService demoService;
+	DemoDao demoDao;
 	@RequestMapping("/start")
 	@ResponseBody
 	public String start() {
 		//demoService.start();
 		return "ok";
 	}
-	@RequestMapping("/addoperator")
+	@RequestMapping(value="/addoperator/{index}", method = RequestMethod.POST)
 	@ResponseBody
-	public String addoperator() {
-		//demoService.start();
-		return "ok";
+	public String addOperator(@PathVariable(value = "index") int index, @RequestBody OperatorRequest activedOperator) {
+		System.out.println(index+activedOperator.toString());
+		//demoDao.getOperatorChain().add(index, activedOperator);
+		return "{\"code\":0}";
 	}
-	@RequestMapping("/updateoperator")
+	//要加上post，默认为get，否则前端回报跨域错误，实际上是404
+	@RequestMapping(value ="/updateoperator/{index}", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateoperator() {
+	public String updateOperator(@PathVariable(value = "index") int index, @RequestBody OperatorRequest activedOperator) {
 		//demoService.start();
-		return "ok";
+		System.out.println(index+activedOperator.toString());
+		//demoDao.getOperatorChain().set(index, activedOperator);
+		return "{\"code\":0}";
 	}
-	@RequestMapping("/removeoperator")
+	@RequestMapping(value ="/updateoperatorchain", method = RequestMethod.POST)
 	@ResponseBody
-	public String removeoperator() {
+	public String updateOperatorChain(@RequestBody List<OperatorRequest> operatorReqs) {
 		//demoService.start();
-		return "ok";
+		System.out.println(operatorReqs.size()+
+				operatorReqs.get(operatorReqs.size()-1).toString());
+		demoDao.doOperator(operatorReqs);
+		return "{\"code\":0}";
+	}
+	@RequestMapping("/removeoperator/{index}")
+	@ResponseBody
+	public String removeOperator(@PathVariable(value = "index") int index) {
+		System.out.println("remove:"+index);
+		demoDao.getOperatorChain().remove(index);
+		return "{\"code\":0}";
 	}
 }
