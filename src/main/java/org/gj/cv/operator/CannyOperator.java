@@ -24,7 +24,7 @@ public class CannyOperator extends Operator{
 	}
 	@Override
 	public Mat handle(Mat res,int barPos) {
-		double lowThreshold=1;
+		double lowThreshold=barPos;
 		int ratio = 3;
 		int kernel_size = 3;
 		Mat src_gray=new Mat();
