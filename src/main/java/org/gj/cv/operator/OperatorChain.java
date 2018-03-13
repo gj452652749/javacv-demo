@@ -3,9 +3,9 @@ package org.gj.cv.operator;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bytedeco.javacpp.opencv_core;
-import org.bytedeco.javacpp.opencv_core.Mat;
 import org.gj.demo.vo.OperatorRequest;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 @Component
@@ -47,8 +47,11 @@ public class OperatorChain {
 			Operator op=operatorFactory.getBean(operatorReqs.get(pos).getName(),Operator.class);
 			return op.doOperator(dst,operatorReqs.get(pos++).getBarPos(),this);
 		}
+		List<Mat> list=new ArrayList<>();
 		Mat rep=new Mat();
-		opencv_core.hconcat( res,dst, rep);
+		list.add(res);
+		list.add(dst);
+		Core.hconcat( list, rep);
 		return rep;
 	}
 

@@ -1,6 +1,6 @@
 package org.gj.cv.operator;
 
-import org.bytedeco.javacpp.opencv_core.Mat;
+import org.opencv.core.Mat;
 import org.springframework.stereotype.Component;
 @Component("src")
 public class SrcOperator extends Operator{

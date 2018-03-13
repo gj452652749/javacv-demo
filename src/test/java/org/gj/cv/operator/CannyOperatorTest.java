@@ -1,16 +1,18 @@
 package org.gj.cv.operator;
 
-import static org.bytedeco.javacpp.opencv_imgcodecs.imread;
-
-import org.bytedeco.javacpp.opencv_core.Mat;
 import org.junit.Test;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class CannyOperatorTest {
 	CannyOperator operator=new CannyOperator();
 	@Test
 	public void canny() {
-		 Mat matL = imread("C:\\Users\\gaojun\\Pictures\\Camera Roll\\a.jpg");
-		 operator.handle(matL,50);
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+		 Mat matL = Imgcodecs.imread("C:\\Users\\gaojun\\Pictures\\Camera Roll\\a.jpg");
+		 Mat result=operator.handle(matL,50);
+		 Imgcodecs.imwrite("C:\\Users\\gaojun\\Pictures\\Camera Roll\\canny.jpg",result);
 	}
 
 }

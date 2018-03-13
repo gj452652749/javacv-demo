@@ -3,6 +3,7 @@ package org.gj;
 import org.gj.microservice.http.util.HttpRest;
 import org.gj.microservice.http.util.HttpRestImp;
 import org.gj.microservice.http.util.SpringRestImp;
+import org.opencv.core.Core;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -24,6 +25,7 @@ public class Application extends SpringBootServletInitializer{
 		return application.sources(Application.class);
 	}
 	public static void main(String[] args) {
+		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		SpringApplication.run(Application.class, args);
 	}
 }

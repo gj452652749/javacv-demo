@@ -52,17 +52,13 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.bytedeco/javacv -->
-		<dependency>
-			<groupId>org.bytedeco</groupId>
-			<artifactId>javacv</artifactId>
-			<version>1.4</version>
-		</dependency>
         <dependency>
-            <groupId>org.bytedeco</groupId>
-            <artifactId>javacv-platform</artifactId>
-            <version>1.4</version>
-        </dependency>
+			<groupId>opencv-340.jar</groupId>
+			<artifactId>opencv-340.jar</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>C:/Users/gaojun/Downloads/opencv/build/java/opencv-340.jar</systemPath>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
