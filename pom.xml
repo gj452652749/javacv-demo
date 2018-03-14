@@ -59,6 +59,11 @@
 			<scope>system</scope>
 			<systemPath>C:/Users/gaojun/Downloads/opencv/build/java/opencv-340.jar</systemPath>
 		</dependency>
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

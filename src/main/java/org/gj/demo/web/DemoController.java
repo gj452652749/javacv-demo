@@ -1,5 +1,6 @@
 package org.gj.demo.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.gj.context.AppContext;
@@ -46,7 +47,7 @@ public class DemoController {
 	}
 	@RequestMapping(value ="/updateoperatorchain/{version}", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateOperatorChain(@PathVariable(value = "version") int version,@RequestBody List<OperatorRequest> operatorReqs) {
+	public String updateOperatorChain(@PathVariable(value = "version") int version,@RequestBody List<OperatorRequest> operatorReqs) throws IOException {
 		//demoService.start();
 		System.out.println("version:"+version+" "+operatorReqs.size()+
 				operatorReqs.get(operatorReqs.size()-1).toString());

@@ -19,27 +19,19 @@ public class HuffOperator extends Operator {
 	@Override
 	public Mat handle(Mat res, int barPos) {
 		// TODO Auto-generated method stub
-		Mat gray = new Mat(res.rows(), res.cols(), CvType.CV_8SC1);	
-		Imgproc.cvtColor(res, gray, Imgproc.COLOR_RGB2GRAY); 		// グレースケール変換
-		Imgproc.Canny(gray, gray, 70, 110);										// 輪郭線検出
+		Mat gray = new Mat();	
+		//Imgproc.Canny(res, gray, 50, 200);	
+		Imgproc.cvtColor(res,gray, Imgproc.COLOR_RGB2GRAY); //灰度化
 		Mat lines = new Mat();
-		// 古典的ハフ変換で直線検出
-		Imgproc.HoughLines(gray, lines, 1, 2*Math.PI/180, 20);
+		Imgproc.HoughLinesP(gray, lines, 1, Math.PI/180, 50, 50 ,10);
 		Mat result = new Mat(res.rows(), res.cols(), CvType.CV_8SC1);	
-		// 検出した直線上を赤線で塗る
-		for (int i = 0; i < lines.cols(); i++){
-			double data[] = lines.get(0, i);
-			double rho = data[0];
-			double theta = data[1];
-			double cosTheta = Math.cos(theta);
-			double sinTheta = Math.sin(theta);
-			double x0 = cosTheta * rho;
-			double y0 = sinTheta * rho;
-			Point pt1 = new Point(x0 + 10000 * (-sinTheta), y0 + 10000 * cosTheta);
-			Point pt2 = new Point(x0 - 10000 * (-sinTheta), y0 - 10000 * cosTheta);
-			Imgproc.line(result, pt1, pt2, new Scalar(255, 255, 255), 3);
-		}
-		return null;
+		int[] a = new int[(int)lines.total()*lines.channels()]; //数组a存储检测出的直线端点坐标
+		lines.get(0,0,a);  
+        for (int i = 0; i < a.length; i += 4)
+        {
+        	Imgproc.line(result, new Point(a[i], a[i+1]), new Point(a[i+2], a[i+3]), new Scalar(255, 0, 255),1);
+        }
+		return result;
 	}
 
 }
